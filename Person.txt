@@ -1,0 +1,50 @@
+﻿package com.example.phanzj.ontap;
+
+import java.io.Serializable;
+public class Person implements Serializable{
+    private int ID;
+    private String Name;
+    private String Content;
+
+    public Person(String Name, String Content ){
+
+        this.Name=Name;
+        this.Content=Content;
+    }
+
+    public Person(int ID,String Name, String Content ){
+
+        this.ID=ID;
+        this.Name=Name;
+        this.Content=Content;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getContent() {
+        return Content;
+    }
+
+    public void setContent(String content) {
+        Content = content;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+}

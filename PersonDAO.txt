@@ -1,0 +1,44 @@
+﻿package com.example.phanzj.ontap;
+
+import android.content.Context;
+import android.database.Cursor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DAO {
+    private Context context;
+    private DBOpenHelper dbOpenHelper;
+    public DAO(Context context){
+        this.context=context;
+
+        dbOpenHelper=new DBOpenHelper(context);
+
+        dbOpenHelper.QueryData("CREATE TABLE IF NOT EXISTS PERSON(ID INTEGER PRIMARY KEY AUTOINCREMENT,TEN VARCHAR(100), NOIDUNG TEXT)");
+    }
+
+    public void InsertPERSON(Person person){
+        dbOpenHelper.QueryData("INSERT INTO PERSON VALUES(NULL,'"+ person.getName() +"','"+ person.getContent() +"')");
+    }
+
+    public void EditPERSON(Person person){
+        dbOpenHelper.QueryData("UPDATE PERSON SET TEN = '"+ person.getName() +"', NOIDUNG = '"+ person.getContent() +"' WHERE ID = "+ person.getID() +" ");
+    }
+
+    public void DeletePERSON(int id){
+        dbOpenHelper.QueryData("DELETE FROM PERSON WHERE ID = "+ id +"");
+    }
+    public List<Person> GetAllPerson(){
+        List<Person> list=new ArrayList<>();
+
+        Cursor cursor=dbOpenHelper.GetData("SELECT * FROM PERSON");
+        while (cursor.moveToNext()){
+            String name = cursor.getString(1);
+            String content = cursor.getString(2);
+            int id = cursor.getInt(0);
+            list.add(new Person(id,name,content));
+        }
+
+        return list;
+    }
+}
